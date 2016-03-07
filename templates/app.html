@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>占座·挑战</title>
+    <style>
+        .classroom-row > * {
+            display: inline-block;
+        }
+        .classroom-seat {
+            width: 40px;
+        }
+    </style>
 </head>
 <body>
 <h1>占座·挑战</h1>
@@ -10,7 +18,22 @@
     这里有一些关于课程的基本信息.
 </div>
 <div id="classroom-container">
-    这里是整个教室的座位图.
+    {% for row in seatmap %}
+    <div class="classroom-row">
+    {% for seat in row %}
+        {% if seat.shadowed is odd %}
+
+        {% endif %}
+        {% if seat.shadowed is even %}
+    <div class="classroom-seat">
+    hello
+    </div>
+        {% endif %}
+    {% endfor %}
+    
+    </div>
+    {% endfor %}
+    
 </div>
 <div id="foot-info">
     这里是一些关于占座系统的信息.
