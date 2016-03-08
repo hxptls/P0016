@@ -29,6 +29,8 @@ class DataStructer(object):
                     seat1['shadowed'] = 1
                 else:
                     seat1['shadowed'] = 0
+                    seat1['x'] = x
+                    seat1['y'] = y
                     seat1['best'] = seat2.get_best_choice_list()
                     seat1['soso'] = seat2.get_soso_choice_list()
                 row.append(seat1)
