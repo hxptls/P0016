@@ -4,7 +4,7 @@
 #
 # Copyright
 #
-from seatmap import SeatMap
+from seatmap import Seat
 
 
 class DataStructer(object):
@@ -14,8 +14,8 @@ class DataStructer(object):
 
     def __init__(self):
         super(DataStructer, self).__init__()
-        self.seat_map = SeatMap(DataStructer.CLASSROOM_WIDTH,
-                                DataStructer.CLASSROOM_HEIGHT)
+        self.seat_map = DataStructer.init_seat_map(
+            DataStructer.CLASSROOM_HEIGHT, DataStructer.CLASSROOM_WIDTH)
         DataStructer.singleton = self
 
     def formatted_seat_map(self):
@@ -24,7 +24,7 @@ class DataStructer(object):
             row = []
             for x in range(DataStructer.CLASSROOM_WIDTH):
                 seat1 = {}
-                seat2 = self.seat_map.get_seat(x, y)
+                seat2 = self.seat_map[y][x]
                 if seat2.is_shadowed():
                     seat1['shadowed'] = 1
                 else:
@@ -46,3 +46,14 @@ class DataStructer(object):
             return DataStructer.singleton
         else:
             return DataStructer()
+
+    @staticmethod
+    def init_seat_map(height, width):
+        my_map = []
+        for y in range(height):
+            row = []
+            for x in range(width):
+                seat = Seat(x, y)
+                row.append(seat)
+            my_map.append(row)
+        return my_map

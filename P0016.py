@@ -19,12 +19,12 @@ def wise_try():
     x = int(request.args.get('x', '-1'))
     y = int(request.args.get('y', '-1'))
     name = request.args.get('n', '')
-    seat_type_set = {'b', 's'}
+    # seat_type_set = {'b', 's'}
     if x < 0 or y < 0 or not name:
         return 'fail'
     if seat_type == 'b':
         ds = DataStructer.get_data_structer()
-        ds.get_seat_map().get_seat(x, y).add_best_choice(name)
+        ds.get_seat_map()[y][x].add_best_choice(name)
         return 'ok'
     elif seat_type == 's':
         ds = DataStructer.get_data_structer()
