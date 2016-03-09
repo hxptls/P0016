@@ -1,0 +1,20 @@
+#classroom-container {
+    width: 100%;
+    overflow-x: auto;
+    display: block;
+}
+.classroom-row {
+    width: 3000px;
+}
+.classroom-seat {
+    display: inline-block;
+    width: 120px;
+    border: solid 1px;
+}
+.best {
+    color: brown;
+}
+.soso {
+    color: cornflowerblue;
+    display: block;
+}

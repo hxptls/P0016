@@ -20,7 +20,7 @@ $(function() {
                     if (req === 'ok') {
                         const the_div = div_id +
                             (seat_type === 'b' ? '>.best' : '>.soso');
-                        $(the_div).html('hex');
+                        $(the_div).html('被你选了');
                         alert('选座成功');
                         chosenCount++;
                     }

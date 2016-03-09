@@ -5,28 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>占座·挑战</title>
-    <style>
-        #classroom-container {
-            width: 100%;
-            overflow-x: auto;
-            display: block;
-        }
-        .classroom-row {
-            width: 3000px;
-        }
-        .classroom-seat {
-            display: inline-block;
-            /*float: left;
-            */width: 120px;
-        }
-        .best {
-            color: brown;
-        }
-        .soso {
-            color: cornflowerblue;
-            display: block;
-        }
-    </style>
+    <link href="../static/app.css" rel="stylesheet">
     <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <script src="../static/choose.js"></script>
 </head>
@@ -44,12 +23,11 @@
                 {% if seat.shadowed is even %}
                     <div class="classroom-seat"
                          id="classroom-seat-{{ seat.x }}-{{ seat.y }}">
-                        X:{{ seat.x }} Y:{{ seat.y }}
                         <div class="best">
-                            BEST:{{- seat.best -}}
+                            {{- seat.best -}}
                         </div>
                         <div class="soso">
-                            SOSO:{{- seat.soso -}}
+                            {{- seat.soso -}}
                         </div>
                     </div>
                 {% endif %}
