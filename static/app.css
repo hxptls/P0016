@@ -2,9 +2,13 @@
     width: 100%;
     overflow-x: auto;
     display: block;
+    border: solid 2px;
+}
+#head-info > * > * > td {
+    border: solid 1px;
 }
 .classroom-row {
-    width: 3000px;
+    width: 2360px;
 }
 .classroom-seat, .classroom-seat-shadowed {
     display: inline-block;
@@ -15,7 +19,7 @@
     border: solid 1px;
 }
 .classroom-seat-shadowed {
-    margin: 1px;
+    /*margin: 1px;*/
 }
 .best {
     color: brown;
@@ -23,4 +27,11 @@
 .soso {
     color: cornflowerblue;
     display: block;
+}
+footer {
+    padding: 40px 0;
+    color: #999;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-top: 1px solid #e5e5e5;
 }

@@ -1,40 +1,18 @@
 {% extends 'base.html' %}
 {% block title %}占座·结果{% endblock %}
-{% block afterhead %}
-    <style>
-    #container {
-        overflow-x: scroll;
-        display: block;
-    }
-    .row {
-        width: 2500px;
-    }
-    .seat, .shadowed-seat {
-        display: inline-block;
-        line-height: 1.2;
-        width: 60px;
-    }
-    .seat {
-        border: solid 1px;
-    }
-    .shadowed-seat {
-        margin: 1px;
-    }
-    </style>
-{% endblock %}
 {% block beforeheadinfo %}
     <h1>占座·结果</h1>
 {% endblock %}
 {% block body %}
-     <div id="container">
+     <div id="classroom-container">
      {% for row in result %}
-         <div class="row">
+         <div class="classroom-row">
          {% for seat in row %}
              {% if seat.shadowed %}
-                 <div class="shadowed-seat"></div>
+                 <div class="classroom-seat-shadowed"></div>
              {% endif %}
              {% if not seat.shadowed %}
-                 <div class="seat">
+                 <div class="classroom-seat">
                  {% if seat.name %}
                      {{ seat.name }}
                  {% endif %}

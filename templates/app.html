@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>占座·挑战</title>
-    <link href="../static/app.css" rel="stylesheet">
-    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+{% extends 'base.html' %}
+{% block title %}占座·挑战{% endblock %}
+{% block afterhead %}
     {% if login.login %}
-        <script>
-            'use strict';
+        <script>'use strict';
 $(function() {
     for (let x = 0; x < 19; x++) {
         for (let y = 0; y < 19; y++) {
@@ -45,32 +38,14 @@ $(function() {
 });
         </script>
     {% endif %}
-</head>
-<body>
+{% endblock %}
+{% block beforeheadinfo %}
 <h1>占座·挑战</h1>
 {% if not login.login %}
-    <div><a href="/login">登录</a></div>
+    <div><a class="btn btn-success btn-lg" href="/login">登录</a></div>
 {% endif %}
-{% if lesson %}
-<table id="head-info">
-    <tr>
-        <td>上课时间</td>
-        <td>{{ lesson.time }}</td>
-    </tr>
-    <tr>
-        <td>科目</td>
-        <td>{{ lesson.subject }}</td>
-    </tr>
-    <tr>
-        <td>地点</td>
-        <td>{{ lesson.location }}</td>
-    </tr>
-    <tr>
-        <td>教师</td>
-        <td>{{ lesson.teacher }}</td>
-    </tr>
-</table>
-{% endif %}
+{% endblock %}
+{% block body %}
 <div id="classroom-container">
     {% for row in seatmap %}
         <div class="classroom-row">
@@ -94,13 +69,5 @@ $(function() {
         </div>
     {% endfor %}
 </div>
-{% if system %}
-<div id="foot-info">
-    当前版本: {{ system.version }}
-</div>
-{% endif %}
-<footer>
-    &copy; 2016 六瓣 版权所有 不得侵犯
-</footer>
-</body>
-</html>
+    <p>想登陆别的账号在网址后面加上/login就好了.弹窗很丑,也快就会改.好吧整个界面都很丑……我一定会改的.如果苹果用不了……我真的不是有意抛弃你们啊你们要相信我……</p>
+{% endblock %}
