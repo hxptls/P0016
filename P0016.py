@@ -4,8 +4,11 @@ from flask import render_template
 from flask import request
 from flask import jsonify
 from flask import session
+from flask import redirect
 from datastructer import DataStructer
 import requests as rq
+import time
+import hashlib
 
 app = Flask(__name__)
 app.secret_key = b'\xc4\xe3\xea\xd7(\xf1\xd0\xe7]\x8c\xfeI\x93\t\xd9\xa8S\x13' \
@@ -14,6 +17,9 @@ app.secret_key = b'\xc4\xe3\xea\xd7(\xf1\xd0\xe7]\x8c\xfeI\x93\t\xd9\xa8S\x13' \
 
 @app.route('/', methods=['GET', 'POST'])
 def hello_world():
+    ds = DataStructer.get_data_structer()
+    if ds.get_system_status() == 'stop boarding':
+        return redirect('/final')
     login = {'login': False}
     if 'username' in session:
         login = {'login': True, 'name': session['username']}
@@ -34,7 +40,6 @@ def hello_world():
         username = data['data']['username']
         login = {'login': True, 'name': username}
         session['username'] = username
-    ds = DataStructer.get_data_structer()
     sm = ds.formatted_seat_map()
     li = ds.get_lesson_info()
     si = ds.get_system_info()
@@ -59,6 +64,35 @@ def wise_try():
 @app.route('/login')
 def knock_knock():
     return render_template('login.html')
+
+
+@app.route('/data')
+def i_want_everything():
+    ds = DataStructer.get_data_structer()
+    return jsonify(ds.get_data_map())
+
+
+@app.route('/stop')
+def bye():
+    secret_key = request.args.get('s', '')
+    x1 = str(time.time() // 3600)
+    x2 = hashlib.md5()
+    x2.update(x1)
+    if x2.hexdigest() == secret_key:
+        pass
+        # exit(0)  # Don't work.
+    return '你想干什么!'
+
+
+@app.route('/final')
+def do_you_like_it():
+    ds = DataStructer.get_data_structer()
+    if ds.get_system_status() == 'boarding':
+        return redirect('/')
+    li = ds.get_lesson_info()
+    si = ds.get_system_info()
+    rs = ds.get_formatted_final_map()
+    return render_template('result.html', result=rs, lesson=li, system=si)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

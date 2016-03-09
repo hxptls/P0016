@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+
+    {% block afterhead %}{% endblock %}
+
+</head>
+<body>
+
+{% block beforeheadinfo %}{% endblock %}
+
+{% if lesson %}
+<table id="head-info">
+    <tr>
+        <td>上课时间</td>
+        <td>{{ lesson.time }}</td>
+    </tr>
+    <tr>
+        <td>科目</td>
+        <td>{{ lesson.subject }}</td>
+    </tr>
+    <tr>
+        <td>地点</td>
+        <td>{{ lesson.location }}</td>
+    </tr>
+    <tr>
+        <td>教师</td>
+        <td>{{ lesson.teacher }}</td>
+    </tr>
+</table>
+{% endif %}
+
+{% block body %}{% endblock %}
+
+{% if system %}
+<div id="foot-info">
+    当前版本: {{ system.version }}
+</div>
+{% endif %}
+<footer>
+    &copy; 2016 六瓣 版权所有 不得侵犯
+</footer>
+</body>
+</html>

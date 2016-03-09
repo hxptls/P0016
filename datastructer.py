@@ -7,8 +7,7 @@
 #
 from seat import Seat
 import json
-from flask import url_for
-import os
+
 
 class DataStructer(object):
     CLASSROOM_HEIGHT = 9
@@ -17,8 +16,10 @@ class DataStructer(object):
 
     def __init__(self):
         super(DataStructer, self).__init__()
+        self.system_status = None
         self.lesson_info = {}
         self.system_info = {}
+        self.final_result = None
         self.seat_map = DataStructer.init_seat_map(
             DataStructer.CLASSROOM_HEIGHT, DataStructer.CLASSROOM_WIDTH)
         self.init_shadowed_seats()
@@ -93,7 +94,6 @@ class DataStructer(object):
             return True, 'add', 'soso'
         return False, '', ''
 
-
     def add_best_choice(self, x, y, name):
         self.seat_map[y][x].add_best_choice(name)
         return True
@@ -142,9 +142,51 @@ class DataStructer(object):
         self.lesson_info = lesson_info
         from prepare.system_info import system_info
         self.system_info = system_info
+        try:
+            from prepare.result import result
+        except ImportError:
+            result = None
+            self.system_status = 'boarding'
+        else:
+            self.final_result = result
+            self.system_status = 'stop boarding'
+
+    def get_system_status(self):
+        return self.system_status
 
     def get_lesson_info(self):
         return self.lesson_info
 
     def get_system_info(self):
         return self.system_info
+
+    def get_data_map(self):
+        data_map = []
+        for x in range(DataStructer.CLASSROOM_WIDTH):
+            for y in range(DataStructer.CLASSROOM_HEIGHT):
+                seat = self.seat_map[y][x]
+                if seat.is_shadowed():
+                    continue
+                item = {'x': x, 'y': y,
+                        'best': seat.get_best_choice_list(),
+                        'soso': seat.get_soso_choice_list()}
+                data_map.append(item)
+        return {'data': data_map}
+
+    def get_formatted_final_map(self):
+        my_map = []
+        for y in range(DataStructer.CLASSROOM_HEIGHT):
+            row = []
+            for x in range(DataStructer.CLASSROOM_WIDTH):
+                seat = {}
+                if self.seat_map[y][x].is_shadowed():
+                    seat['shadowed'] = True
+                else:
+                    seat['shadowed'] = False
+                    for item in self.final_result:
+                        if item['x'] == x and item['y'] == y:
+                            seat['name'] = item['name']
+                            break
+                row.append(seat)
+            my_map.append(row)
+        return my_map
