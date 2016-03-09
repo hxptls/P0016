@@ -7,10 +7,40 @@
     <title>占座·挑战</title>
     <link href="../static/app.css" rel="stylesheet">
     <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <script src="../static/choose.js"></script>
+    {% if login.login %}
+        <script>
+            'use strict';
+$(function() {
+    for (let x = 0; x < 19; x++) {
+        for (let y = 0; y < 19; y++) {
+            const div_id = '#classroom-seat-' + x + '-' + y;
+            $(div_id).click(function () {
+                alert('正在选座……');
+                $.getJSON('/choose', {
+                    'x': x, 'y': y, 'n': '{{ login.name }}'
+                }, function(req) {
+                    if (req['status'] === 0) {
+                        const the_div = div_id +
+                            (req['type'] === 'best' ? '>.best' : '>.soso');
+                        $(the_div).html('被你选了');
+                        alert('选座成功');
+                    }
+                    else {
+                        alert('妈的智障');
+                    }
+                })
+            })
+        }
+    }
+});
+        </script>
+    {% endif %}
 </head>
 <body>
 <h1>占座·挑战</h1>
+{% if not login.login %}
+    <div><a href="/login">登录</a></div>
+{% endif %}
 <div id="head-info">
     这里有一些关于课程的基本信息.
 </div>
@@ -18,10 +48,10 @@
     {% for row in seatmap %}
         <div class="classroom-row">
             {% for seat in row %}
-                {% if seat.shadowed is odd %}
+                {% if seat.shadowed %}
                     <div class="classroom-seat-shadowed"></div>
                 {% endif %}
-                {% if seat.shadowed is even %}
+                {% if not seat.shadowed %}
                     <div class="classroom-seat"
                          id="classroom-seat-{{ seat.x }}-{{ seat.y }}">
                     X: {{ seat.x }} Y:{{ seat.y }}

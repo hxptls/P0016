@@ -18,6 +18,7 @@ class DataStructer(object):
         self.seat_map = DataStructer.init_seat_map(
             DataStructer.CLASSROOM_HEIGHT, DataStructer.CLASSROOM_WIDTH)
         self.init_shadowed_seats()
+        self.user_table = {}
         DataStructer.singleton = self
 
     def formatted_seat_map(self):
@@ -28,9 +29,9 @@ class DataStructer(object):
                 seat1 = {}
                 seat2 = self.seat_map[y][x]
                 if seat2.is_shadowed():
-                    seat1['shadowed'] = 1
+                    seat1['shadowed'] = True
                 else:
-                    seat1['shadowed'] = 0
+                    seat1['shadowed'] = False
                     seat1['x'] = x
                     seat1['y'] = y
 
@@ -44,6 +45,21 @@ class DataStructer(object):
                 row.append(seat1)
             my_map.append(row)
         return my_map
+
+    def add_choice(self, x, y, name):
+        if name in self.user_table:
+            if self.user_table[name] == 4:
+                return False
+            self.user_table[name] += 1
+            if self.add_soso_choice(x, y, name):
+                return 'soso'
+            else:
+                return False
+        self.user_table[name] = 1
+        if self.add_best_choice(x, y, name):
+            return 'best'
+        else:
+            return False
 
     def add_best_choice(self, x, y, name):
         self.seat_map[y][x].add_best_choice(name)
