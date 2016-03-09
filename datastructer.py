@@ -4,7 +4,7 @@
 #
 # Copyright
 #
-from seatmap import Seat
+from seat import Seat
 
 
 class DataStructer(object):
@@ -37,8 +37,13 @@ class DataStructer(object):
             my_map.append(row)
         return my_map
 
-    def get_seat_map(self):
-        return self.seat_map
+    def add_best_choice(self, x, y, name):
+        self.seat_map[y][x].add_best_choice(name)
+        return True
+
+    def add_soso_choice(self, x, y, name):
+        self.seat_map[y][x].add_soso_choice(name)
+        return True
 
     @staticmethod
     def get_data_structer():

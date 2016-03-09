@@ -24,11 +24,11 @@ def wise_try():
         return 'fail'
     if seat_type == 'b':
         ds = DataStructer.get_data_structer()
-        ds.get_seat_map()[y][x].add_best_choice(name)
+        ds.add_best_choice(x, y, name)
         return 'ok'
     elif seat_type == 's':
         ds = DataStructer.get_data_structer()
-        ds.get_seat_map().get_seat(x, y).add_soso_choice(name)
+        ds.add_soso_choice(x, y, name)
         return 'ok'
     else:
         return 'fail'
