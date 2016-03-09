@@ -12,23 +12,7 @@
         }
     </style>
     <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <script>
-        'use strict';
-        $(function() {
-            for (let x = 0; x < 19; x++) {
-                for (let y = 0; y < 19; y++) {
-                    const div_id = '#classroom-seat-' + x + '-' + y;
-                    $(div_id).click(function () {
-                        $.get('/choose', {'s': 'b', 'x': x, 'y': y, 'n': 'hex'}, function(req) {
-                            if (req === 'ok') {
-                                $(div_id + '>.best').html('hex');
-                            }
-                        })
-                    })
-                }
-            }
-        });
-    </script>
+    <script src="../static/choose.js"></script>
 </head>
 <body>
 <h1>占座·挑战</h1>
@@ -42,12 +26,14 @@
                 {% if seat.shadowed is odd %}
                 {% endif %}
                 {% if seat.shadowed is even %}
-                    <div class="classroom-seat" id="classroom-seat-{{ seat.x }}-{{ seat.y }}">
+                    <div class="classroom-seat"
+                         id="classroom-seat-{{ seat.x }}-{{ seat.y }}">
+                        X:{{ seat.x }} Y:{{ seat.y }}
                         <div class="best">
-                            {{ seat.best }}
+                            BEST:{{ seat.best }}
                         </div>
                         <div class="soso">
-                            {{ seat.soso }}
+                            SOSO:{{ seat.soso }}
                         </div>
                     </div>
                 {% endif %}

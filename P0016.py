@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+from flask import url_for
 from datastructer import DataStructer
 
 app = Flask(__name__)
@@ -19,7 +20,6 @@ def wise_try():
     x = int(request.args.get('x', '-1'))
     y = int(request.args.get('y', '-1'))
     name = request.args.get('n', '')
-    # seat_type_set = {'b', 's'}
     if x < 0 or y < 0 or not name:
         return 'fail'
     if seat_type == 'b':
@@ -35,4 +35,4 @@ def wise_try():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')

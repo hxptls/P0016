@@ -16,10 +16,6 @@
 
 
 class Seat(object):
-    """
-
-    """
-
     def __init__(self, x, y):
         super(Seat, self).__init__()
         self.x = x
