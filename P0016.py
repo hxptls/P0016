@@ -3,15 +3,20 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import jsonify
+from flask import session
 from datastructer import DataStructer
 import requests as rq
 
 app = Flask(__name__)
+app.secret_key = b'\xc4\xe3\xea\xd7(\xf1\xd0\xe7]\x8c\xfeI\x93\t\xd9\xa8S\x13' \
+                 b'\xeeM\x8c\x12\xb6\x9f'
 
 
 @app.route('/', methods=['GET', 'POST'])
 def hello_world():
     login = {'login': False}
+    if 'username' in session:
+        login = {'login': True, 'name': session['username']}
     if request.method == 'POST':
         username = request.form['user']
         password = request.form['password']
@@ -26,10 +31,15 @@ def hello_world():
         cl = data['data']['class']
         if cl not in (u'少年班41', u'少年班42', u'少年班43', u'少年班44'):
             return u'你不是我们班的,不要企图浑水摸鱼!'
-        login = {'login': True, 'name': data['data']['username']}
+        username = data['data']['username']
+        login = {'login': True, 'name': username}
+        session['username'] = username
     ds = DataStructer.get_data_structer()
     sm = ds.formatted_seat_map()
-    return render_template('app.html', seatmap=sm, login=login)
+    li = ds.get_lesson_info()
+    si = ds.get_system_info()
+    return render_template('app.html', seatmap=sm, login=login, lesson=li,
+                           system=si)
 
 
 @app.route('/choose')
@@ -40,10 +50,10 @@ def wise_try():
     if x < 0 or y < 0 or not name:
         return jsonify({'status': -1})
     ds = DataStructer.get_data_structer()
-    success = ds.add_choice(x, y, name)
-    if not success:
+    status, action, my_type = ds.update_choice(x, y, name)
+    if not status:
         return jsonify({'status': -2})
-    return jsonify({'status': 0, 'type': success})
+    return jsonify({'status': 0, 'type': my_type, 'action': action})
 
 
 @app.route('/login')

@@ -6,7 +6,9 @@
 # Copyright
 #
 from seat import Seat
-
+import json
+from flask import url_for
+import os
 
 class DataStructer(object):
     CLASSROOM_HEIGHT = 9
@@ -15,9 +17,12 @@ class DataStructer(object):
 
     def __init__(self):
         super(DataStructer, self).__init__()
+        self.lesson_info = {}
+        self.system_info = {}
         self.seat_map = DataStructer.init_seat_map(
             DataStructer.CLASSROOM_HEIGHT, DataStructer.CLASSROOM_WIDTH)
         self.init_shadowed_seats()
+        self.init_prepare_data()
         self.user_table = {}
         DataStructer.singleton = self
 
@@ -61,6 +66,34 @@ class DataStructer(object):
         else:
             return False
 
+    def update_choice(self, x, y, name):
+        seat = self.seat_map[y][x]
+        if name in seat.get_best_choice_list():
+            seat.delete_best_choice(name)
+            self.user_table[name]['best'] = 0
+            return True, 'delete', 'best'
+        elif name in seat.get_soso_choice_list():
+            seat.delete_soso_choice(name)
+            self.user_table[name]['soso'] -= 1
+            return True, 'delete', 'soso'
+
+        if name not in self.user_table:
+            seat.add_best_choice(name)
+            self.user_table[name] = {'best': 0, 'soso': 0}
+            self.user_table[name]['best'] = 1
+            return True, 'add', 'best'
+
+        if self.user_table[name]['best'] == 0:
+            seat.add_best_choice(name)
+            self.user_table[name]['best'] = 1
+            return True, 'add', 'best'
+        if self.user_table[name]['soso'] < 3:
+            seat.add_soso_choice(name)
+            self.user_table[name]['soso'] += 1
+            return True, 'add', 'soso'
+        return False, '', ''
+
+
     def add_best_choice(self, x, y, name):
         self.seat_map[y][x].add_best_choice(name)
         return True
@@ -103,3 +136,15 @@ class DataStructer(object):
         self.seat_map[1][1].set_shadowed()
         self.seat_map[1][2].set_shadowed()
         self.seat_map[1][-1].set_shadowed()
+
+    def init_prepare_data(self):
+        from prepare.lesson_info import lesson_info
+        self.lesson_info = lesson_info
+        from prepare.system_info import system_info
+        self.system_info = system_info
+
+    def get_lesson_info(self):
+        return self.lesson_info
+
+    def get_system_info(self):
+        return self.system_info

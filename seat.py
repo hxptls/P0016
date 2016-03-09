@@ -42,6 +42,12 @@ class Seat(object):
     def is_shadowed(self):
         return self.shadowed
 
+    def delete_best_choice(self, name):
+        self.bestChoice.remove(name)
+
+    def delete_soso_choice(self, name):
+        self.sosoChoice.remove(name)
+
     def clean(self):
         self.bestChoice = []
         self.sosoChoice = []
