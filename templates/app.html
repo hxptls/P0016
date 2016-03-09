@@ -2,13 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>占座·挑战</title>
     <style>
-        .classroom-row > * {
-            display: inline-block;
+        #classroom-container {
+            width: 100%;
+            overflow-x: auto;
+            display: block;
+        }
+        .classroom-row {
+            width: 3000px;
         }
         .classroom-seat {
-            width: 60px;
+            display: inline-block;
+            /*float: left;
+            */width: 120px;
+        }
+        .best {
+            color: brown;
+        }
+        .soso {
+            color: cornflowerblue;
+            display: block;
         }
     </style>
     <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
@@ -30,10 +46,10 @@
                          id="classroom-seat-{{ seat.x }}-{{ seat.y }}">
                         X:{{ seat.x }} Y:{{ seat.y }}
                         <div class="best">
-                            BEST:{{ seat.best }}
+                            BEST:{{- seat.best -}}
                         </div>
                         <div class="soso">
-                            SOSO:{{ seat.soso }}
+                            SOSO:{{- seat.soso -}}
                         </div>
                     </div>
                 {% endif %}

@@ -1,3 +1,4 @@
+# coding=utf-8
 #
 # datastructer.py
 # Create by hexapetalous on Mar 8, 2016.
@@ -31,8 +32,14 @@ class DataStructer(object):
                     seat1['shadowed'] = 0
                     seat1['x'] = x
                     seat1['y'] = y
-                    seat1['best'] = seat2.get_best_choice_list()
-                    seat1['soso'] = seat2.get_soso_choice_list()
+
+                    def list2str(l):
+                        if l:
+                            return u'%3s 等%2d人' % (l[0], len(l))
+                        else:
+                            return u' '
+                    seat1['best'] = list2str(seat2.get_best_choice_list())
+                    seat1['soso'] = list2str(seat2.get_soso_choice_list())
                 row.append(seat1)
             my_map.append(row)
         return my_map
