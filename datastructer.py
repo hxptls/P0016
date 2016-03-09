@@ -17,6 +17,7 @@ class DataStructer(object):
         super(DataStructer, self).__init__()
         self.seat_map = DataStructer.init_seat_map(
             DataStructer.CLASSROOM_HEIGHT, DataStructer.CLASSROOM_WIDTH)
+        self.init_shadowed_seats()
         DataStructer.singleton = self
 
     def formatted_seat_map(self):
@@ -69,3 +70,20 @@ class DataStructer(object):
                 row.append(seat)
             my_map.append(row)
         return my_map
+
+    def init_shadowed_seats(self):
+        for y in range(DataStructer.CLASSROOM_HEIGHT):
+            self.seat_map[y][4].set_shadowed()
+            self.seat_map[y][-5].set_shadowed()
+        self.seat_map[0][0].set_shadowed()
+        self.seat_map[0][1].set_shadowed()
+        self.seat_map[0][2].set_shadowed()
+        self.seat_map[0][3].set_shadowed()
+        self.seat_map[0][-1].set_shadowed()
+        self.seat_map[0][-2].set_shadowed()
+        self.seat_map[0][-3].set_shadowed()
+        self.seat_map[0][-4].set_shadowed()
+        self.seat_map[1][0].set_shadowed()
+        self.seat_map[1][1].set_shadowed()
+        self.seat_map[1][2].set_shadowed()
+        self.seat_map[1][-1].set_shadowed()

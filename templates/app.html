@@ -19,10 +19,12 @@
         <div class="classroom-row">
             {% for seat in row %}
                 {% if seat.shadowed is odd %}
+                    <div class="classroom-seat-shadowed"></div>
                 {% endif %}
                 {% if seat.shadowed is even %}
                     <div class="classroom-seat"
                          id="classroom-seat-{{ seat.x }}-{{ seat.y }}">
+                    X: {{ seat.x }} Y:{{ seat.y }}
                         <div class="best">
                             {{- seat.best -}}
                         </div>

@@ -6,10 +6,16 @@
 .classroom-row {
     width: 3000px;
 }
-.classroom-seat {
+.classroom-seat, .classroom-seat-shadowed {
     display: inline-block;
     width: 120px;
+    line-height: 1.2;
+}
+.classroom-seat {
     border: solid 1px;
+}
+.classroom-seat-shadowed {
+    margin: 1px;
 }
 .best {
     color: brown;
