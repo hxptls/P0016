@@ -8,7 +8,7 @@ $(function() {
         for (let y = 0; y < 19; y++) {
             const div_id = '#classroom-seat-' + x + '-' + y;
             let idiotCount = 0;
-            $(div_id).click(function () {
+            $(document).on('click', div_id, function () {
                 alert('正在操作……');
                 $.getJSON('/choose', {
                     'x': x, 'y': y, 'n': '{{ login.name }}'
@@ -58,7 +58,7 @@ $(function() {
                     <div class="classroom-seat-shadowed"></div>
                 {% endif %}
                 {% if not seat.shadowed %}
-                    <div class="classroom-seat"
+                    <div class="classroom-seat" onclick="$('#classroom-seat-{{ seat.x }}-{{ seat.y }}').trigger('click')"
                          id="classroom-seat-{{ seat.x }}-{{ seat.y }}">
                     X: {{ seat.x }} Y:{{ seat.y }}
                         <div class="best">

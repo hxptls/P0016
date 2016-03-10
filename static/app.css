@@ -24,6 +24,7 @@
 .classroom-seat {
     border: solid 1px;
     border-radius: 3px;
+    cursor: pointer;
 }
 .classroom-seat-shadowed {
     /*margin: 1px;*/
@@ -48,4 +49,5 @@ h1 {
 #login {
     float: right;
     margin-top: 15px;
+    margin-right: 10px;
 }
