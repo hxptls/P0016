@@ -34,6 +34,21 @@
         <td>教师</td>
         <td>{{ lesson.teacher }}</td>
     </tr>
+    <tr>
+        <td>占座截止</td>
+        <td>{{ lesson['closing data'] }}</td>
+    </tr>
+    <tr>
+        <td>系统状态</td>
+        <td>
+            {% if lesson.status == 'boarding' %}
+                正在登机
+            {% endif %}
+            {% if lesson.status == 'stop boarding' %}
+                停止登机
+            {% endif %}
+        </td>
+    </tr>
 </table>
 {% endif %}
 
@@ -57,14 +72,15 @@
     </tr>
 </table>
 {% endif %}
-<ul>以下言论的最终解释权……死心吧我这么懒才不会解释呢
+<strong>以下言论的最终解释权……死心吧我这么懒才不会解释呢</strong>
+<ul>
     <li>用苹果的小伙伴我对不起你们……我真的不是有意的……一定尽快修复,你们先凑合着借个手机选吧……对不起……</li>
-    <li>需要登录另一个账号的话在地址后面加上\login就行了.</li>
     <li>弹出"正在处理"的时候起始并没有在处理,要等到你点了确定才处理.我知道这个很蠢,包括弹框本身也很蠢,之后就改.</li>
     <li>这个网站使用flask作为后端,前端使用和借鉴了bootstrap,对他们表示感谢……并且没脸说这么丑的东西是还用了bootstrap.稍后会改.</li>
     <li>等我把项目传到github上以后在这里贴地址.</li>
     <li>座位分配算法在另一个项目里,同样传到github上再说.</li>
 </ul>
+<hr />
 <footer>
     &copy; 2016 六瓣 版权所有 不得侵犯
 </footer>

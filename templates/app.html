@@ -41,11 +41,15 @@ $(function() {
 {% endblock %}
 {% block beforeheadinfo %}
 <h1>占座·挑战</h1>
-{% if not login.login %}
-    <div><a class="btn btn-success btn-lg" href="/login">登录</a></div>
-{% endif %}
+<div>
+    <a class="btn btn-success btn-lg" id="login" href="/login">
+        {% if not login.login %}登录{% endif %}
+        {% if login.login %}重新登录{% endif %}
+    </a>
+</div>
 {% endblock %}
 {% block body %}
+<hr />
 <div id="classroom-container">
     {% for row in seatmap %}
         <div class="classroom-row">
@@ -69,4 +73,9 @@ $(function() {
         </div>
     {% endfor %}
 </div>
+<hr />
+<p>红色:理想位置;蓝色:勉强位置.</p>
+<p>点一下选择,再点一下取消,再点一下关爱智zh……</p>
+<p>红的最多一个,蓝的最多三个.</p>
+<hr />
 {% endblock %}

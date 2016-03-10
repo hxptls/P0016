@@ -14,7 +14,12 @@
              {% if not seat.shadowed %}
                  <div class="classroom-seat">
                  {% if seat.name %}
-                     {{ seat.name }}
+                     {% if seat.name == user.name %}
+                        <span style="color: crimson">{{ seat.name }}</span>
+                     {% endif %}
+                     {% if seat.name != user.name %}
+                        {{ seat.name }}
+                     {% endif %}
                  {% endif %}
                  {% if not seat.name %}
                      ...

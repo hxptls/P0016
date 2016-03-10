@@ -72,15 +72,15 @@ def i_want_everything():
     return jsonify(ds.get_data_map())
 
 
-@app.route('/stop')
+@app.route('/refresh')
 def bye():
     secret_key = request.args.get('s', '')
     x1 = str(time.time() // 3600)
     x2 = hashlib.md5()
     x2.update(x1)
     if x2.hexdigest() == secret_key:
-        pass
-        # exit(0)  # Don't work.
+        DataStructer.refresh()
+        return '刷新成功.'
     return '你想干什么!'
 
 
@@ -92,7 +92,11 @@ def do_you_like_it():
     li = ds.get_lesson_info()
     si = ds.get_system_info()
     rs = ds.get_formatted_final_map()
-    return render_template('result.html', result=rs, lesson=li, system=si)
+    us = {}
+    if 'username' in session:
+        us['name'] = session['username']
+    return render_template('result.html', result=rs, lesson=li, system=si,
+                           user=us)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

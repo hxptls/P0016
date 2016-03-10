@@ -142,14 +142,9 @@ class DataStructer(object):
         self.lesson_info = lesson_info
         from prepare.system_info import system_info
         self.system_info = system_info
-        try:
-            from prepare.result import result
-        except ImportError:
-            result = None
-            self.system_status = 'boarding'
-        else:
-            self.final_result = result
-            self.system_status = 'stop boarding'
+        from prepare.result import result
+        self.final_result = result
+        self.system_status = lesson_info['status']
 
     def get_system_status(self):
         return self.system_status
@@ -190,3 +185,8 @@ class DataStructer(object):
                 row.append(seat)
             my_map.append(row)
         return my_map
+
+    @staticmethod
+    def refresh():
+        new_singleton = DataStructer()
+        DataStructer.singleton = new_singleton
