@@ -3,10 +3,12 @@
     overflow-x: auto;
     display: block;
     border: solid 2px;
+    margin: 20px;
+    padding: 10px;
 }
-#head-info > * > * > td {
+/*#head-info > * > * > td {
     border: solid 1px;
-}
+}*/
 .classroom-row {
     width: 2360px;
 }
