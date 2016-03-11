@@ -15,14 +15,14 @@
                  <div class="classroom-seat">
                  {% if seat.name %}
                      {% if seat.name == user.name %}
-                        <span style="color: crimson">{{ seat.name }}</span>
+                        <div class="best">{{ seat.name }}</div>
                      {% endif %}
                      {% if seat.name != user.name %}
-                        {{ seat.name }}
+                        <div class="soso">{{ seat.name }}</div>
                      {% endif %}
                  {% endif %}
                  {% if not seat.name %}
-                     ...
+                    <div class="soso"></div>
                  {% endif %}
                  </div>
              {% endif %}
