@@ -22,29 +22,13 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-      <script>
-          $(document).ready(function() {
-              $('#my-form').bind('submit', function() {
-                  var array = $(this).serializeArray();
-                  var dict = {};
-                  $.each(array, function() {
-                      dict[this.name] = this.value;
-                  });
-                  $.post('https://account.tiaozhan.com/api/xjtucas/ajaxLogin', dict, function(result) {
-                      alert(result);
-                  });
-                  return false;
-              });
-          });
-      </script>
   </head>
 
   <body>
 
     <div class="container">
 
-      <form class="form-signin" id="my-form">
+      <form class="form-signin" id="my-form" method="post" action="/">
         <h2 class="form-signin-heading">占座·登录</h2>
           <h5>没错我就是这么厚颜无耻地把模板复制粘贴了</h5>
         <label for="inputEmail" class="sr-only">NetID</label>
