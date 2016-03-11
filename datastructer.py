@@ -45,7 +45,7 @@ class DataStructer(object):
                         if l:
                             return u'%3s 等%2d人' % (l[0], len(l))
                         else:
-                            return u'..........'
+                            return u' '
                     seat1['best'] = list2str(seat2.get_best_choice_list())
                     seat1['soso'] = list2str(seat2.get_soso_choice_list())
                 row.append(seat1)
@@ -134,7 +134,7 @@ class DataStructer(object):
         self.seat_map[0][-4].set_shadowed()
         self.seat_map[1][0].set_shadowed()
         self.seat_map[1][1].set_shadowed()
-        self.seat_map[1][2].set_shadowed()
+        # self.seat_map[1][2].set_shadowed()
         self.seat_map[1][-1].set_shadowed()
 
     def init_prepare_data(self):

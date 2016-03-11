@@ -8,7 +8,7 @@ $(function() {
         for (let y = 0; y < 19; y++) {
             const div_id = '#classroom-seat-' + x + '-' + y;
             let idiotCount = 0;
-            $(document).on('click', div_id, function () {
+            $(div_id).on('click', function () {
                 alert('正在操作……');
                 $.getJSON('/choose', {
                     'x': x, 'y': y, 'n': '{{ login.name }}'
@@ -40,13 +40,15 @@ $(function() {
     {% endif %}
 {% endblock %}
 {% block beforeheadinfo %}
-<h1>占座·挑战</h1>
+<div id="headline">
+    <h1>占座·挑战</h1>
 <div>
     <a class="btn btn-success btn-lg" id="login" href="/login">
         {% if not login.login %}登录{% endif %}
         {% if login.login %}重新登录{% endif %}
     </a>
 </div>
+    </div>
 {% endblock %}
 {% block body %}
 <hr />
@@ -58,15 +60,15 @@ $(function() {
                     <div class="classroom-seat-shadowed"></div>
                 {% endif %}
                 {% if not seat.shadowed %}
-                    <div class="classroom-seat" onclick="$('#classroom-seat-{{ seat.x }}-{{ seat.y }}').trigger('click')"
+                    <div class="classroom-seat"
                          id="classroom-seat-{{ seat.x }}-{{ seat.y }}">
-                    X: {{ seat.x }} Y:{{ seat.y }}
-                        <div class="best">
+                        <div class="pos">({{- seat.x -}}, {{- seat.y -}})</div>
+                        <button class="best">
                             {{- seat.best -}}
-                        </div>
-                        <div class="soso">
+                        </button>
+                        <button class="soso">
                             {{- seat.soso -}}
-                        </div>
+                        </button>
                     </div>
                 {% endif %}
             {% endfor %}
@@ -74,8 +76,9 @@ $(function() {
     {% endfor %}
 </div>
 <hr />
-<p>红色:理想位置;蓝色:勉强位置.</p>
-<p>点一下选择,再点一下取消,再点一下关爱智zh……</p>
-<p>红的最多一个,蓝的最多三个.</p>
+<p>红色:理想位置;蓝色:勉强位置.<br />
+点一下选择,再点一下取消,再点一下关爱智zh……<br />
+红的最多一个,蓝的最多三个.<br />
+    </p>
 <hr />
 {% endblock %}

@@ -1,6 +1,14 @@
 #body-container {
-    max-width: 800px;
+    /*max-width: 800px;*/
     margin: auto;
+    padding: 10px;
+}
+div#headline, .table, ul, p, strong {
+    max-width: 800px;
+    margin: 0 auto;
+}
+#headline {
+    height: 70px;
 }
 #classroom-container {
     width: 100%;
@@ -9,6 +17,7 @@
     border: solid 2px;
     margin: 20px 0;
     padding: 10px;
+    background-color: #f9f9f9;
 }
 /*#head-info > * > * > td {
     border: solid 1px;
@@ -24,17 +33,21 @@
 .classroom-seat {
     border: solid 1px;
     border-radius: 3px;
-    cursor: pointer;
 }
 .classroom-seat-shadowed {
     /*margin: 1px;*/
 }
 .best {
-    color: brown;
+    background-color: deepskyblue;
+    color: white;
+    height: 2em;
+    width: 100%;
 }
 .soso {
-    color: cornflowerblue;
-    display: block;
+    background-color: aqua;
+    color: black;
+    height: 2em;
+    width: 100%;
 }
 footer {
     padding: 40px 0;
@@ -50,4 +63,16 @@ h1 {
     float: right;
     margin-top: 15px;
     margin-right: 10px;
+}
+.pos {
+    color: #999999;
+    font-family: Monospaced, monospace;
+    text-align: center;
+}
+button {
+    border: 0;
+    display: block;
+    align-items: center;
+    font-family: 'PingFang SC', serif;
+    padding: 0;
 }
