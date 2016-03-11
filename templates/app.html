@@ -3,39 +3,32 @@
 {% block afterhead %}
     {% if login.login %}
         <script>'use strict';
-$(function() {
-    for (let x = 0; x < 19; x++) {
-        for (let y = 0; y < 19; y++) {
-            const div_id = '#classroom-seat-' + x + '-' + y;
-            let idiotCount = 0;
-            $(div_id).on('click', function () {
-                alert('正在操作……');
-                $.getJSON('/choose', {
-                    'x': x, 'y': y, 'n': '{{ login.name }}'
-                }, function(req) {
-                    if (req['status'] === 0) {
-                        const the_div = div_id +
-                            (req['type'] === 'best' ? '>.best' : '>.soso');
-                        const displayString =
-                                req['action'] === 'add' ? '被你选了' : '被你删了';
-                        $(the_div).html(displayString);
-                        alert('操作成功');
+        var idiotCount = 0;
+        function clickHandler(x, y) {
+            alert('正在操作……');
+            $.getJSON('/choose', {
+                'x': x, 'y': y, 'n': '{{ login.name }}'
+            }, function(req) {
+                if (req['status'] === 0) {
+                    var the_div = '#classroom-seat-' + x +'-' + y +
+                        (req['type'] === 'best' ? '>.best' : '>.soso');
+                    var displayString =
+                            req['action'] === 'add' ? '被你选了' : '被你删了';
+                    $(the_div).html(displayString);
+                    alert('操作成功');
+                }
+                else {
+                    if (idiotCount < 10) {
+                        alert('妈的智障');
+                        idiotCount++;
                     }
                     else {
-                        if (idiotCount < 10) {
-                            alert('妈的智障');
-                            idiotCount++;
-                        }
-                        else {
-                            // 1st Easter Egg!
-                            location.href = 'http://www.moj.gov.cn';
-                        }
+                        // 1st Easter Egg!
+                        location.href = 'http://www.moj.gov.cn';
                     }
-                })
+                }
             })
         }
-    }
-});
         </script>
     {% endif %}
 {% endblock %}
@@ -60,7 +53,7 @@ $(function() {
                     <div class="classroom-seat-shadowed"></div>
                 {% endif %}
                 {% if not seat.shadowed %}
-                    <div class="classroom-seat"
+                    <div class="classroom-seat" onclick="clickHandler({{ seat.x }}, {{ seat.y }});"
                          id="classroom-seat-{{ seat.x }}-{{ seat.y }}">
                         <div class="pos">({{- seat.x -}}, {{- seat.y -}})</div>
                         <button class="best">
