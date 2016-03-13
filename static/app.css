@@ -1,5 +1,4 @@
 #body-container {
-    /*max-width: 800px;*/
     margin: auto;
     padding: 10px;
 }
@@ -19,11 +18,8 @@ div#headline, .table, ul, p, strong {
     padding: 10px;
     background-color: #f9f9f9;
 }
-/*#head-info > * > * > td {
-    border: solid 1px;
-}*/
 .classroom-row {
-    width: 2360px;
+    width: 2500px;
 }
 .classroom-seat, .classroom-seat-shadowed {
     display: inline-block;
@@ -33,9 +29,6 @@ div#headline, .table, ul, p, strong {
 .classroom-seat {
     border: solid 1px;
     border-radius: 3px;
-}
-.classroom-seat-shadowed {
-    /*margin: 1px;*/
 }
 .best {
     background-color: deepskyblue;
