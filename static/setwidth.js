@@ -7,6 +7,6 @@ $('#classroom-container').ready(function() {
         maxRight = Math.max(maxRight, ele.offsetLeft + ele.offsetWidth);
     });
     $('.classroom-row').each(function(n, ele) {
-        ele.style.width = '' + (maxRight - 10) + 'px';
+        ele.style.width = '' + (maxRight + 10) + 'px';
     });
 });
