@@ -15,15 +15,16 @@
                  <div class="classroom-seat">
                  {% if seat.name %}
                      {% if seat.name == user.name %}
-                        <div class="best">{{ seat.name }}</div>
+                        <button class="best">{{ seat.name }}</button>
                      {% endif %}
                      {% if seat.name != user.name %}
-                        <div class="soso">{{ seat.name }}</div>
+                        <button class="soso">{{ seat.name }}</button>
                      {% endif %}
                  {% endif %}
                  {% if not seat.name %}
-                    <div class="soso"></div>
+                    <button class="soso"></button>
                  {% endif %}
+                     <button style="height: 0"></button>
                  </div>
              {% endif %}
          {% endfor %}
